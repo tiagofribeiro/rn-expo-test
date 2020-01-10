@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
-
+import { Alert, Button, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Card from '../Components/Card';
-import Colors from '../Constants/Colors';
 import Input from '../Components/Input';
+import NumberContainer from '../Components/NumberContainer';
+import Colors from '../Constants/Colors';
+
 
 const StartScreen = props => {
     const [enteredValue, setEnteredValue] = useState('');
@@ -21,20 +22,27 @@ const StartScreen = props => {
 
     const confirmInputHandler = () => {
         const number = parseInt(enteredValue);
-        if (number == NaN || number <= 0 || number > 99) {
-            Alert.alert('','',[{}]);
+        if (isNaN(number) || number <= 0 || number > 99) {
+            Alert.alert('Número Inválido', 'O número precisa estar entre 1 e 99', [{ text: 'Ok', style: 'destructive ', onPress: resetInputHandler }]);
             return;
         }
 
         setEnteredValue('');
         setConfirmed(true);
         setSelectedNumber(number);
+        Keyboard.dismiss();
     };
 
     let confirmedOutput;
 
     if (confirmed)
-        confirmedOutput = <Text>Número escolhido: {selectedNumber}</Text>
+        confirmedOutput = (
+            <Card style={styles.summaryContainer}>
+                <Text>Número escolhido:</Text>
+                <NumberContainer>{selectedNumber}</NumberContainer>
+                <Button title="Começar"/>
+            </Card>
+        );
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -92,6 +100,10 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 100
+    },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center'
     }
 });
 
