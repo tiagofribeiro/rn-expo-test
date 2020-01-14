@@ -4,9 +4,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import Header from './Components/Header';
 import StartScreen from './Screens/StartScreen';
 import GameScreen from './Screens/GameScreen';
+import OverScreen from './Screens/OverScreen';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
+  const [guessRounds, setGuessRounds] = useState(0);
   
   const startGameHandler = (selectedNumber) => {
     setUserNumber(selectedNumber);
