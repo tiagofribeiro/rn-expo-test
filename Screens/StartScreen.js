@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Alert, Button, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+
 import Card from '../Components/Card';
 import Input from '../Components/Input';
 import NumberContainer from '../Components/NumberContainer';
 import Colors from '../Constants/Colors';
+import DefaultStyle from '../Constants/DefaultStyle';
 
 
 const StartScreen = props => {
@@ -38,9 +40,9 @@ const StartScreen = props => {
     if (confirmed)
         confirmedOutput = (
             <Card style={styles.summaryContainer}>
-                <Text>Número escolhido:</Text>
+                <Text style={DefaultStyle.bodyText}>Número escolhido:</Text>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title="Começar" onPress={() => props.onStartGame(selectedNumber)}/>
+                <Button title="Começar" onPress={() => props.onStartGame(selectedNumber)} />
             </Card>
         );
 
@@ -49,9 +51,9 @@ const StartScreen = props => {
             Keyboard.dismiss();
         }}>
             <View style={styles.sreen}>
-                <Text style={styles.title}>Iniciar Jogo</Text>
+                <Text style={{ ...DefaultStyle.title, ...styles.title }}>Iniciar Jogo</Text>
                 <Card style={styles.inputContainer}>
-                    <Text>Digite um número</Text>
+                    <Text style={DefaultStyle.bodyText}>Digite um número</Text>
                     <Input
                         style={styles.input}
                         blurOnSubmit
